@@ -9,8 +9,8 @@
   <link rel="icon" href="images/lotus.png" type="image/png">
   <style>
     :root{
-      --accent:#b3286a;
-      --accent-dark:#8f1e53;
+      --accent:#3e6ea3;
+      --accent-dark:#2d5380;
       --ink:#1b1b1f;
       --body:#33343a;
       --muted:#7a7c85;
@@ -36,7 +36,9 @@
     nav .wrap{display:flex; align-items:center; height:60px; gap:20px}
     nav .brand{font-family:var(--serif); font-weight:600; font-size:18px; color:var(--ink)}
     nav .brand:hover{text-decoration:none; color:var(--accent)}
-    nav .navlinks{display:flex; gap:24px; font-size:15px}
+    nav .logo{display:flex; align-items:center}
+    nav .logo canvas{width:54px; height:38px}
+    nav .navlinks{margin-left:auto; display:flex; gap:24px; font-size:15px}
     nav .navlinks a{color:var(--body)}
     nav .navlinks a:hover{color:var(--accent); text-decoration:none}
 
@@ -77,7 +79,7 @@
     .pub .plinks{font-size:14px; margin-top:7px; display:flex; gap:8px; flex-wrap:wrap}
     .pub .plinks a, .pub .plinks button{color:var(--accent); border:1px solid var(--line); border-radius:6px; padding:2px 9px; background:none; cursor:pointer; font:inherit; font-size:13.5px; transition:.15s}
     .pub .plinks a:hover, .pub .plinks button:hover{background:var(--accent); color:#fff; border-color:var(--accent); text-decoration:none}
-    .pub .abstract{display:none; margin-top:9px; font-size:14.5px; color:var(--body); background:#faf7f9; border-left:3px solid var(--accent); padding:10px 14px; border-radius:0 6px 6px 0}
+    .pub .abstract{display:none; margin-top:9px; font-size:14.5px; color:var(--body); background:#eef3fa; border-left:3px solid var(--accent); padding:10px 14px; border-radius:0 6px 6px 0}
     .pub .abstract.show{display:block}
 
     footer{border-top:1px solid var(--line); margin-top:24px; padding:26px 0 48px; text-align:center; color:var(--muted); font-size:13px}
@@ -87,6 +89,7 @@
 
 <nav>
   <div class="wrap">
+    <a class="logo" href="#" aria-label="Home"><canvas id="logoCanvas"></canvas></a>
     <div class="navlinks">
       <a href="#about">About</a>
       <a href="#news">News</a>
@@ -210,6 +213,42 @@
       this.textContent = open ? 'hide' : 'tl;dr';
     });
   });
+
+  /* animated Lorenz-attractor logo, drawn in the accent color */
+  (function(){
+    var canvas = document.getElementById('logoCanvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    function resize(){ canvas.width = canvas.clientWidth*dpr; canvas.height = canvas.clientHeight*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+    resize(); window.addEventListener('resize', resize);
+    var accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#3e6ea3';
+    var x=0.01, y=0, z=0, dt=0.01, a=10, b=28, c=8/3, pts=[];
+    function map(v,i0,i1,o0,o1){ return (v-i0)*(o1-o0)/(i1-i0)+o0; }
+    function step(){
+      var dx=a*(y-x)*dt, dy=(x*(b-z)-y)*dt, dz=(x*y-c*z)*dt;
+      x+=dx; y+=dy; z+=dz; pts.push([x,z]);
+      if(pts.length>560) pts.shift();
+    }
+    function paint(){
+      var W=canvas.clientWidth, H=canvas.clientHeight;
+      ctx.clearRect(0,0,W,H);
+      for(var j=1;j<pts.length;j++){
+        ctx.beginPath();
+        ctx.moveTo(map(pts[j-1][0],-21,21,3,W-3), map(pts[j-1][1],0,50,H-3,3));
+        ctx.lineTo(map(pts[j][0],-21,21,3,W-3),   map(pts[j][1],0,50,H-3,3));
+        ctx.globalAlpha = j/pts.length;          /* fade the tail */
+        ctx.strokeStyle = accent; ctx.lineWidth = 1.1;
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+    for(var w=0; w<2200; w++) step();            /* warm up to a full attractor */
+    paint();
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      (function loop(){ step(); step(); paint(); requestAnimationFrame(loop); })();
+    }
+  })();
 </script>
 </body>
 </html>
