@@ -36,7 +36,7 @@
     nav .wrap{display:flex; align-items:center; height:60px; gap:20px}
     nav .brand{font-family:var(--serif); font-weight:600; font-size:18px; color:var(--ink)}
     nav .brand:hover{text-decoration:none; color:var(--accent)}
-    nav .navlinks{margin-left:auto; display:flex; gap:22px; font-size:15px}
+    nav .navlinks{display:flex; gap:24px; font-size:15px}
     nav .navlinks a{color:var(--body)}
     nav .navlinks a:hover{color:var(--accent); text-decoration:none}
 
@@ -52,11 +52,10 @@
     @media(max-width:640px){ .portrait{width:170px; height:200px} .profile-photo{order:-1} }
 
     /* social row */
-    .social{display:flex; flex-wrap:wrap; gap:10px}
-    .social a{display:inline-flex; align-items:center; gap:7px; font-size:14px; color:var(--body);
-      border:1px solid var(--line); border-radius:999px; padding:7px 13px}
-    .social a:hover{color:var(--accent); border-color:var(--accent); text-decoration:none}
-    .social svg{width:15px; height:15px; fill:currentColor}
+    .social{display:flex; align-items:center; gap:18px}
+    .social a{display:inline-flex; color:var(--muted)}
+    .social a:hover{color:var(--accent); text-decoration:none}
+    .social svg{width:21px; height:21px; fill:currentColor}
 
     /* ---------- sections ---------- */
     section{padding:30px 0}
@@ -88,7 +87,6 @@
 
 <nav>
   <div class="wrap">
-    <a class="brand" href="#">Liane Galanti</a>
     <div class="navlinks">
       <a href="#about">About</a>
       <a href="#news">News</a>
@@ -117,21 +115,13 @@
         <a href="https://www.cs.tau.ac.il/~wolf/" target="_blank" rel="noopener">Lior Wolf</a>.
       </p>
       <p class="bio">
-        My research interests are in <strong>robotics</strong>, <strong>reinforcement learning</strong>, and <strong>post-training</strong>.
+        My research centers on <strong>AI for robotics</strong> — particularly reinforcement learning and post-training for capable, general-purpose robots.
       </p>
       <div class="social">
-        <a href="mailto:galanti@princeton.edu">
-          <svg viewBox="0 0 24 24"><path d="M2 4h20v16H2zM4 6l8 6 8-6"/></svg>Email
-        </a>
-        <a href="https://scholar.google.com/citations?user=8jDgDJIAAAAJ&hl=en" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13.2V17l7 4 7-4v-3.8l-7 3.8z"/></svg>Scholar
-        </a>
-        <a href="https://github.com/lianegalanti" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/liane-galanti-31879923a/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21H9z"/></svg>LinkedIn
-        </a>
+        <a href="mailto:galanti@princeton.edu" title="Email" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M2 4h20v16H2zM4 6l8 6 8-6"/></svg></a>
+        <a href="https://scholar.google.com/citations?user=8jDgDJIAAAAJ&hl=en" target="_blank" rel="noopener" title="Google Scholar" aria-label="Google Scholar"><svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9zM5 13.2V17l7 4 7-4v-3.8l-7 3.8z"/></svg></a>
+        <a href="https://github.com/lianegalanti" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></a>
+        <a href="https://www.linkedin.com/in/liane-galanti-31879923a/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.3-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21H9z"/></svg></a>
       </div>
     </div>
     <div class="profile-photo">
